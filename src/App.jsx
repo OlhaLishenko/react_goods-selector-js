@@ -21,13 +21,6 @@ export const App = () => {
   const [selectedValue, setSelectedValue] = useState('');
   const [alertNoGoods, setAlertGoods] = useState('No goods selected');
 
-  // const [visibilityAlert, setVisibilityAlert] = useState('flex');
-  // const [visibility, setVisibility] = useState('none');
-
-  // function handleSelectGood(good) {
-  //   setSelectedGood(prev => (prev === good ? null : good));
-  // }
-
   useEffect(() => {
     // console.log(selectedGood + ' in effect');
 
@@ -38,7 +31,7 @@ export const App = () => {
       setSelectedValue('');
       setAlertGoods('No goods selected');
     }
-  }, [selectedGood, selectedValue, alertNoGoods]);
+  }, [selectedGood]);
 
   return (
     <main className="section container">
@@ -79,18 +72,21 @@ export const App = () => {
       <table className="table">
         <tbody>
           {goods.map(good => (
-            <tr data-cy="Good" key={good}>
+            <tr
+              data-cy="Good"
+              key={good}
+              className={classNames({
+                'has-background-success-light': selectedGood === good,
+              })}
+            >
               <td>
                 <button
                   onClick={() => {
-                    // handleSelectGood(good);
                     setSelectedGood(prev => (prev === good ? null : good));
                   }}
                   data-cy="AddButton"
                   type="button"
-                  className={classNames('button', {
-                    'has-background-success-light': selectedGood === good,
-                  })}
+                  className="button"
                 >
                   {selectedGood === good ? '-' : '+'}
                 </button>
